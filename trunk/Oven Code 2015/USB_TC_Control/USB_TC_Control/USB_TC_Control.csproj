@@ -105,11 +105,11 @@
     <Compile Include="SplashScreen.Designer.cs">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="USB_TC_Control_v4.cs">
+    <Compile Include="USB_TC_Control.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="USB_TC_Control_v4.Designer.cs">
-      <DependentUpon>USB_TC_Control_v4.cs</DependentUpon>
+    <Compile Include="USB_TC_Control.Designer.cs">
+      <DependentUpon>USB_TC_Control.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="PID Settings Form.resx">
       <DependentUpon>PID Settings Form.cs</DependentUpon>
@@ -122,8 +122,8 @@
     <EmbeddedResource Include="SplashScreen.resx">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="USB_TC_Control_v4.resx">
-      <DependentUpon>USB_TC_Control_v4.cs</DependentUpon>
+    <EmbeddedResource Include="USB_TC_Control.resx">
+      <DependentUpon>USB_TC_Control.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Pmag_Oven_Code_Project.pfx" />
     <None Include="Properties\Settings.settings">
