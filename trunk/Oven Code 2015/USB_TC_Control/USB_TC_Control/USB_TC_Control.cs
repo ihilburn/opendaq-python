@@ -100,7 +100,7 @@ namespace USB_TC_Control
         public string filename = "";
 
         // DateTime object used to log the date and time logging started.
-        public DateTime date_time = new DateTime();
+        public DateTime Start_Log_File_Time = new DateTime();
 
         // String variable used to to format date_time to a string.
         public string format = " M_d_yy @ h.mm tt";
@@ -214,13 +214,13 @@ namespace USB_TC_Control
         public string UserEmail_copy = "";
         public string UserPhone_copy = "";
         public string BatchCode_copy = "";
-        public string MaxTemp_copy = "";
-        public string HoldTime_copy = "";
+        public float MaxTemp_copy = 20;
+        public TimeSpan HoldTime_copy = new TimeSpan(0);
         public string CoolMethod_copy = "";
         public string directory_copy = "";
         public string OvenName_copy = "";
-        public string SwitchTemp_copy = "";
-        public string StopTemp_copy = "";
+        public float SwitchTemp_copy = 20;
+        public float StopTemp_copy = 30;
         public string OvenStartTime_copy = "";
         public string TimeElapsed_copy = "";
         public string HoldStartTime_copy = "";
@@ -429,11 +429,15 @@ namespace USB_TC_Control
             UserPhoneTextBox.Text = "111-222-3333";
 
             // Default max. temp
-            MaxTempTextBox.Text = "";
+            MaxTemperatureNumericUpDown.Value = 50;
+            
 
             // Default hold time
-            HoldTimeTextBox.Text = "";
+            HoldTimeAtPeakNumericUpDown.Value = 30;
 
+            // Default Stop Cooling Temperature
+            StopCoolingTemperatureNumericUpDown.Value = 25;
+            
             // Default cooling method is Nitrogen
             CoolMethodComboBox.SelectedIndex = 1;
 
@@ -512,7 +516,6 @@ namespace USB_TC_Control
 
             if (CheckParameters(ParameterTypeEnum.ThermoCouples) != ErrorCodeEnum.NoError)
             {
-                SaveLogFileDirectoryTextBox.BackColor = Color.MistyRose;
                 MessageBox.Show(
                     "Check and complete highlighted thermocouple" +
                     " read parameters!", 
@@ -521,6 +524,7 @@ namespace USB_TC_Control
                 return;
             }
 
+            UpdateDirectory();
             if (String.IsNullOrWhiteSpace(directory))
             {
                 SaveLogFileDirectoryTextBox.BackColor = Color.MistyRose;
@@ -536,7 +540,9 @@ namespace USB_TC_Control
                 return;
             }
             else
+            {
                 SaveLogFileDirectoryTextBox.BackColor = Color.White;
+            }
 
             if (IsParametersChanged())
             {
@@ -558,9 +564,9 @@ namespace USB_TC_Control
             OvenNameTextBox.BorderStyle = BorderStyle.FixedSingle;
             UserEmailTextBox.Enabled = false;
             UserPhoneTextBox.Enabled = false;
-            SwitchTempTextBox.Enabled = false;
-            MaxTempTextBox.Enabled = false;
-            HoldTimeTextBox.Enabled = false;
+            SwitchToAirTemperatureNumericUpDown.Enabled = false;
+            MaxTemperatureNumericUpDown.Enabled = false;            
+            HoldTimeAtPeakNumericUpDown.Enabled = false;
             CoolMethodComboBox.Enabled = false;
 
             UserPhoneTextBox.BackColor = Color.White;
@@ -572,6 +578,8 @@ namespace USB_TC_Control
             {
                 CopyParameters();
 
+                Start_Temp_Time = DateTime.Now;
+                Start_Log_File_Time = Start_Temp_Time;
                 temperature_read_thread = new Thread(new ThreadStart(ReadTemperature));
                 temperature_read_thread.Start();
                 temperature_start_check = ComponentCheckStatusEnum.Running;
@@ -595,9 +603,7 @@ namespace USB_TC_Control
 
             warning_time = 20;
 
-            ReadTC_Button.BackColor = Color.GreenYellow;
-
-            
+            ReadTC_Button.BackColor = Color.GreenYellow;            
             
             StopTC_Button.BackColor = default(Color);
         }
@@ -613,10 +619,10 @@ namespace USB_TC_Control
             {
                 UserEmailTextBox.Enabled = true;
                 UserPhoneTextBox.Enabled = true;
-                MaxTempTextBox.Enabled = true;
-                HoldTimeTextBox.Enabled = true;
+                MaxTemperatureNumericUpDown.Enabled = true;
+                HoldTimeAtPeakNumericUpDown.Enabled = true;
                 CoolMethodComboBox.Enabled = true;
-                SwitchTempTextBox.Enabled = true;
+                SwitchToAirTemperatureNumericUpDown.Enabled = true;
             }
 
             read_check = ComponentCheckStatusEnum.None;
@@ -639,10 +645,10 @@ namespace USB_TC_Control
         {
             UserEmailTextBox.Enabled = true;
             UserPhoneTextBox.Enabled = true;
-            MaxTempTextBox.Enabled = true;
-            HoldTimeTextBox.Enabled = true;
+            MaxTemperatureNumericUpDown.Enabled = true;
+            HoldTimeAtPeakNumericUpDown.Enabled = true;
             CoolMethodComboBox.Enabled = true;
-            SwitchTempTextBox.Enabled = true;
+            SwitchToAirTemperatureNumericUpDown.Enabled = true;
 
             if (CheckParameters(ParameterTypeEnum.Oven) != 
                     ErrorCodeEnum.NoError)
@@ -695,15 +701,15 @@ namespace USB_TC_Control
             UserPhoneTextBox.BackColor = Color.White;
             BatchIDCodeTextBox.ReadOnly = true;
             BatchIDCodeTextBox.BorderStyle = BorderStyle.FixedSingle;
-            //MaxTempTextBox.ReadOnly = true;
-            //MaxTempTextBox.BorderStyle = BorderStyle.FixedSingle;
-            //HoldTimeTextBox.ReadOnly = true;
-            //HoldTimeTextBox.BorderStyle = BorderStyle.FixedSingle;
+            //MaxTemperatureNumericUpDown.ReadOnly = true;
+            //MaxTemperatureNumericUpDown.BorderStyle = BorderStyle.FixedSingle;
+            //HoldTimeAtPeakNumericUpDown.ReadOnly = true;
+            //HoldTimeAtPeakNumericUpDown.BorderStyle = BorderStyle.FixedSingle;
             OvenNameTextBox.ReadOnly = true;
             OvenNameTextBox.BorderStyle = BorderStyle.FixedSingle;
             CoolMethodComboBox.Enabled = false;
-            //SwitchTempTextBox.ReadOnly = true;
-            //SwitchTempTextBox.BorderStyle = BorderStyle.FixedSingle;
+            //SwitchToAirTemperatureNumericUpDown.ReadOnly = true;
+            //SwitchToAirTemperatureNumericUpDown.BorderStyle = BorderStyle.FixedSingle;
 
             if (IsParametersChanged())
                 UpdateDirectory();
@@ -793,10 +799,10 @@ namespace USB_TC_Control
             UserPhoneTextBox.BackColor = Color.White;
             BatchIDCodeTextBox.ReadOnly = false;
             BatchIDCodeTextBox.BorderStyle = BorderStyle.Fixed3D;
-            MaxTempTextBox.ReadOnly = false;
-            MaxTempTextBox.BorderStyle = BorderStyle.Fixed3D;
-            HoldTimeTextBox.ReadOnly = false;
-            HoldTimeTextBox.BorderStyle = BorderStyle.Fixed3D;
+            MaxTemperatureNumericUpDown.ReadOnly = false;
+            MaxTemperatureNumericUpDown.BorderStyle = BorderStyle.Fixed3D;
+            HoldTimeAtPeakNumericUpDown.ReadOnly = false;
+            HoldTimeAtPeakNumericUpDown.BorderStyle = BorderStyle.Fixed3D;
             CoolMethodComboBox.Enabled = true;
 
             if (oven_check != ComponentCheckStatusEnum.None)
@@ -882,10 +888,10 @@ namespace USB_TC_Control
                     String.IsNullOrWhiteSpace(BatchIDCodeTextBox.Text))
                     BatchIDCodeTextBox.Text = UserNameTextBox.Text;
 
-                date_time = DateTime.Now;
+                Start_Log_File_Time = DateTime.Now;
 
                 filename = String.Join("", UserNameTextBox.Text, "_", BatchIDCodeTextBox.Text, "",
-                    date_time.ToString(format), ".txt");
+                    Start_Log_File_Time.ToString(format), ".txt");
 
                 directory = Path.Combine(filepath, filename);
 
@@ -903,12 +909,15 @@ namespace USB_TC_Control
             UserPhoneTextBox.Text = "805-258-3141";
             OvenNameTextBox.Text = "Lowenstam";
             BatchIDCodeTextBox.Text = "EmptyAir";
-            MaxTempTextBox.Text = "100";
-            HoldTimeTextBox.Text = "30";
+            MaxTemperatureNumericUpDown.Value = 50;
+            HoldTimeAtPeakNumericUpDown.Value = 30;
             UserPhoneTextBox.BackColor = Color.White;
             CoolMethodComboBox.SelectedIndex = 0;
-            SwitchTempTextBox.Text = "150";
-            StopCoolingTemperatureTextBox.Text = "27";
+            SwitchToAirTemperatureNumericUpDown.Value = 150;
+            StopCoolingTemperatureNumericUpDown.Value = 27;
+            SaveLogFileDirectoryTextBox.Text = @"C:\Users\lab\Dropbox\Ge SURF\Stuff\Oven Data";
+            filepath = SaveLogFileDirectoryTextBox.Text;
+
         }
 
         // This function is called when the cooling method is changed.
@@ -916,15 +925,15 @@ namespace USB_TC_Control
         {
             if (CoolMethodComboBox.SelectedIndex == 1)
             {
-                SwitchTempTextBox.Enabled = true;
-                SwitchTempTextBox.ReadOnly = false;
-                SwitchTempTextBox.BorderStyle = BorderStyle.Fixed3D;
+                SwitchToAirTemperatureNumericUpDown.Enabled = true;
+                SwitchToAirTemperatureNumericUpDown.ReadOnly = false;
+                SwitchToAirTemperatureNumericUpDown.BorderStyle = BorderStyle.Fixed3D;
             }
             else
             {
-                SwitchTempTextBox.ReadOnly = true;
-                SwitchTempTextBox.BackColor = Color.White;
-                SwitchTempTextBox.BorderStyle = BorderStyle.FixedSingle;
+                SwitchToAirTemperatureNumericUpDown.ReadOnly = true;
+                SwitchToAirTemperatureNumericUpDown.BackColor = Color.White;
+                SwitchToAirTemperatureNumericUpDown.BorderStyle = BorderStyle.FixedSingle;
             }
         }
 
@@ -1274,12 +1283,12 @@ namespace USB_TC_Control
             UserNameTextBox.BackColor = Color.White;
             UserEmailTextBox.BackColor = Color.White;
             BatchIDCodeTextBox.BackColor = Color.White;
-            MaxTempTextBox.BackColor = Color.White;
-            HoldTimeTextBox.BackColor = Color.White;
+            MaxTemperatureNumericUpDown.BackColor = Color.White;
+            HoldTimeAtPeakNumericUpDown.BackColor = Color.White;
             CoolMethodComboBox.BackColor = Color.White;
             SaveLogFileDirectoryTextBox.BackColor = Color.White;
             OvenNameTextBox.BackColor = Color.White;
-            SwitchTempTextBox.BackColor = Color.White;
+            SwitchToAirTemperatureNumericUpDown.BackColor = Color.White;
         }
 
         // This function updates the filename in case the user sets the
@@ -1415,9 +1424,10 @@ namespace USB_TC_Control
                                 Color.Gray;
                     }
 
+                    //Change the place holder temperature value (-9999) to 0
                     if (TempData_C[i] == -9999)
                         TempData_C[i] = 0;
-
+                    
                     if (i == 0)
                     {
                         Tray_Outer_Edge = TempData_C[i];
@@ -1463,51 +1473,51 @@ namespace USB_TC_Control
                     if (oven_check == ComponentCheckStatusEnum.Running)
                         timespan = DateTime.Now.Subtract(Start_Oven_Time);
                     else
-                        timespan = DateTime.Now.Subtract(date_time);
+                        timespan = DateTime.Now.Subtract(Start_Temp_Time);
 
                     if (oven_check == ComponentCheckStatusEnum.Running)
                         TimeElapsedTextBox.Text = timespan.ToString(@"h\:mm\:ss");
 
                     Time = timespan.TotalMinutes;
-
+                                        
                     TempertureVsTimeGraph.Series[
                         Enum.GetName(typeof(TemperatureVsTimeDataSeriesEnum),
                                     TemperatureVsTimeDataSeriesEnum.TrayOuter_Edge)].Points.AddXY(Time,
                         Tray_Outer_Edge);
-
+                    
                     TempertureVsTimeGraph.Series[
                         Enum.GetName(typeof(TemperatureVsTimeDataSeriesEnum),
                                     TemperatureVsTimeDataSeriesEnum.TraySampleZone_Edge)].Points.AddXY(Time,
                         Tray_SZ_Edge);
-
+                    
                     TempertureVsTimeGraph.Series[
                         Enum.GetName(typeof(TemperatureVsTimeDataSeriesEnum),
                                     TemperatureVsTimeDataSeriesEnum.TrayInner_Edge)].Points.AddXY(Time,
                         Tray_Inner_Edge);
-
+                    
                     TempertureVsTimeGraph.Series[
                         Enum.GetName(typeof(TemperatureVsTimeDataSeriesEnum),
                                     TemperatureVsTimeDataSeriesEnum.TrayOuter_Center)].Points.AddXY(Time,
                         Tray_Outer_Center);
-
+                    
                     TempertureVsTimeGraph.Series[
                         Enum.GetName(typeof(TemperatureVsTimeDataSeriesEnum),
                                     TemperatureVsTimeDataSeriesEnum.TraySampleZone_Center)].Points.AddXY(Time,
                         Tray_SZ_Center);
-
+                    
                     TempertureVsTimeGraph.Series[
                         Enum.GetName(typeof(TemperatureVsTimeDataSeriesEnum),
                                     TemperatureVsTimeDataSeriesEnum.TrayInner_Center)].Points.AddXY(Time,
                         Tray_Inner_Center);
-
+                    
                     TempertureVsTimeGraph.Series[
                         Enum.GetName(typeof(TemperatureVsTimeDataSeriesEnum),
                                     TemperatureVsTimeDataSeriesEnum.Outer)].Points.AddXY(Time, Outer);
-
+                    
                     TempertureVsTimeGraph.Series[
                         Enum.GetName(typeof(TemperatureVsTimeDataSeriesEnum),
                                     TemperatureVsTimeDataSeriesEnum.Inner)].Points.AddXY(Time, Inner);
-
+                    
                     this.Refresh();
                 }
 
@@ -1915,53 +1925,43 @@ namespace USB_TC_Control
 
                 try
                 {
-                    if (String.IsNullOrWhiteSpace(MaxTempTextBox.Text))
+                    if (MaxTemperatureNumericUpDown.Value > 800 ||
+                        MaxTemperatureNumericUpDown.Value < 20)
                     {
-                        MaxTempTextBox.BackColor = Color.MistyRose;
-                        check++;
-                    }
-                    else if (Convert.ToInt32(MaxTempTextBox.Text) > 800 ||
-                        Convert.ToInt32(MaxTempTextBox.Text) < 20)
-                    {
-                        MaxTempTextBox.BackColor = Color.MistyRose;
+                        MaxTemperatureNumericUpDown.BackColor = Color.MistyRose;
                         check++;
                     }
                     else
                     {
-                        if (Convert.ToInt32(MaxTempTextBox.Text) >= 150 &&
+                        if (MaxTemperatureNumericUpDown.Value >= 150 &&
                             CoolMethodComboBox.SelectedIndex == 0)
                             MessageBox.Show(
                                 "Recommend using Nitrogen (N2) " +
                                     "cooling when heating samples to 150 °C and above.",
                                 "   SUGGESTION");
-                        MaxTempTextBox.BackColor = Color.White;
+                        MaxTemperatureNumericUpDown.BackColor = Color.White;
                     }
                 }
                 catch
                 {
-                    MaxTempTextBox.BackColor = Color.MistyRose;
+                    MaxTemperatureNumericUpDown.BackColor = Color.MistyRose;
                     check++;
                 }
 
                 try
                 {
-                    if (String.IsNullOrWhiteSpace(HoldTimeTextBox.Text))
+                    if (HoldTimeAtPeakNumericUpDown.Value > 100 ||
+                        HoldTimeAtPeakNumericUpDown.Value < 5)
                     {
-                        HoldTimeTextBox.BackColor = Color.MistyRose;
-                        check++;
-                    }
-                    else if (Convert.ToInt32(HoldTimeTextBox.Text) > 100 ||
-                        Convert.ToInt32(HoldTimeTextBox.Text) < 5)
-                    {
-                        HoldTimeTextBox.BackColor = Color.MistyRose;
+                        HoldTimeAtPeakNumericUpDown.BackColor = Color.MistyRose;
                         check++;
                     }
                     else
-                        HoldTimeTextBox.BackColor = Color.White;
+                        HoldTimeAtPeakNumericUpDown.BackColor = Color.White;
                 }
                 catch
                 {
-                    HoldTimeTextBox.BackColor = Color.MistyRose;
+                    HoldTimeAtPeakNumericUpDown.BackColor = Color.MistyRose;
                     check++;
                 }
 
@@ -1972,35 +1972,30 @@ namespace USB_TC_Control
                 }
                 else if (CoolMethodComboBox.SelectedIndex == 1)
                 {
-                    SwitchTempTextBox.Enabled = true;
+                    SwitchToAirTemperatureNumericUpDown.Enabled = true;
                     try
                     {
-                        if (String.IsNullOrWhiteSpace(SwitchTempTextBox.Text))
+                        if (SwitchToAirTemperatureNumericUpDown.Value > 500 ||
+                            SwitchToAirTemperatureNumericUpDown.Value < 20)
                         {
-                            SwitchTempTextBox.BackColor = Color.MistyRose;
-                            check++;
-                        }
-                        else if (Convert.ToInt32(SwitchTempTextBox.Text) > 500 ||
-                        Convert.ToInt32(HoldTimeTextBox.Text) < 5)
-                        {
-                            SwitchTempTextBox.BackColor = Color.MistyRose;
+                            SwitchToAirTemperatureNumericUpDown.BackColor = Color.MistyRose;
                             check++;
                         }
                         else
-                            SwitchTempTextBox.BackColor = Color.White;
+                            SwitchToAirTemperatureNumericUpDown.BackColor = Color.White;
                     }
                     catch
                     {
-                        SwitchTempTextBox.BackColor = Color.MistyRose;
+                        SwitchToAirTemperatureNumericUpDown.BackColor = Color.MistyRose;
                         check++;
                     }
                     CoolMethodComboBox.BackColor = Color.White;
                 }
                 else if (CoolMethodComboBox.SelectedIndex == 0)
                 {
-                    SwitchTempTextBox.Text = "";
-                    SwitchTempTextBox.BackColor = Color.White;
-                    SwitchTempTextBox.Enabled = false;
+                    SwitchToAirTemperatureNumericUpDown.Value = 20;
+                    SwitchToAirTemperatureNumericUpDown.BackColor = Color.White;
+                    SwitchToAirTemperatureNumericUpDown.Enabled = false;
                     CoolMethodComboBox.BackColor = Color.White;
                 }
                 else
@@ -2008,23 +2003,18 @@ namespace USB_TC_Control
 
                 try
                 {
-                    if (String.IsNullOrWhiteSpace(StopCoolingTemperatureTextBox.Text))
+                    if (StopCoolingTemperatureNumericUpDown.Value > 50 ||
+                        StopCoolingTemperatureNumericUpDown.Value < 25)
                     {
-                        StopCoolingTemperatureTextBox.BackColor = Color.MistyRose;
-                        check++;
-                    }
-                    else if (Convert.ToInt32(StopCoolingTemperatureTextBox.Text) > 50 ||
-                    Convert.ToInt32(StopCoolingTemperatureTextBox.Text) < 25)
-                    {
-                        StopCoolingTemperatureTextBox.BackColor = Color.MistyRose;
+                        StopCoolingTemperatureNumericUpDown.BackColor = Color.MistyRose;
                         check++;
                     }
                     else
-                        StopCoolingTemperatureTextBox.BackColor = Color.White;
+                        StopCoolingTemperatureNumericUpDown.BackColor = Color.White;
                 }
                 catch
                 {
-                    StopCoolingTemperatureTextBox.BackColor = Color.MistyRose;
+                    StopCoolingTemperatureNumericUpDown.BackColor = Color.MistyRose;
                     check++;
                 }
 
@@ -2069,13 +2059,13 @@ namespace USB_TC_Control
             BatchCode_copy = BatchIDCodeTextBox.Text;
             UserEmail_copy = UserEmailTextBox.Text;
             UserPhone_copy = UserPhoneTextBox.Text;
-            MaxTemp_copy = MaxTempTextBox.Text;
-            HoldTime_copy = HoldTimeTextBox.Text;
+            MaxTemp_copy = (float)MaxTemperatureNumericUpDown.Value;
+            HoldTime_copy = new TimeSpan(0,(int)HoldTimeAtPeakNumericUpDown.Value,0);
             CoolMethod_copy = CoolMethodComboBox.SelectedIndex.ToString();
             directory_copy = directory;
             OvenName_copy = OvenNameTextBox.Text;
-            SwitchTemp_copy = SwitchTempTextBox.Text;
-            StopTemp_copy = StopCoolingTemperatureTextBox.Text;
+            SwitchTemp_copy = (float)SwitchToAirTemperatureNumericUpDown.Value;
+            StopTemp_copy = (float)StopCoolingTemperatureNumericUpDown.Value;
             OvenStartTime_copy = OvenStartTimeTextBox.Text;
             TimeElapsed_copy = TimeElapsedTextBox.Text;
             HoldStartTime_copy = HoldStartTimeTextBox.Text;
@@ -2092,12 +2082,12 @@ namespace USB_TC_Control
             UserEmail_copy != UserEmailTextBox.Text ||
             BatchCode_copy != BatchIDCodeTextBox.Text ||
             UserPhone_copy != UserPhoneTextBox.Text ||
-            MaxTemp_copy != MaxTempTextBox.Text ||
-            HoldTime_copy != HoldTimeTextBox.Text ||
+            MaxTemp_copy != (float)MaxTemperatureNumericUpDown.Value ||
+            HoldTime_copy != new TimeSpan(0,(int)HoldTimeAtPeakNumericUpDown.Value,0) ||
             CoolMethod_copy != CoolMethodComboBox.SelectedIndex.ToString() ||
             directory_copy != directory ||
-            SwitchTemp_copy != SwitchTempTextBox.Text ||
-            StopTemp_copy != StopCoolingTemperatureTextBox.Text ||
+            SwitchTemp_copy != (float)SwitchToAirTemperatureNumericUpDown.Value ||
+            StopTemp_copy != (float)StopCoolingTemperatureNumericUpDown.Value ||
             OvenName_copy != OvenNameTextBox.Text)
             {
                 if (BatchCode_copy != BatchIDCodeTextBox.Text)
@@ -2302,7 +2292,7 @@ namespace USB_TC_Control
                         {"Temperature and events log file.", 
                             " ",
                             "Created on " + 
-                            date_time.ToString(format),
+                            Start_Log_File_Time.ToString(format),
                             " ",
                             "Temperature read approx. every 5 " +
                             "seconds in degrees Celsius.", 
@@ -2934,10 +2924,10 @@ namespace USB_TC_Control
                     TempData = new float[MAX_CHANCOUNT] {-9999, -9999,
                         -9999, -9999, -9999, -9999, -9999, -9999};
 
-                    Array.Copy(TempData, TempData_C, 8);
+                    //Array.Copy(TempData, TempData_C, 8);
 
                     not_showing_temp = true;
-                    BeginInvoke(update_temp_del, TempData, TempData_C);
+                    //BeginInvoke(update_temp_del, TempData, TempData_C);
                 }
                 else
                     not_showing_temp = false;
@@ -3095,7 +3085,7 @@ namespace USB_TC_Control
         {
             Boolean RetVal = false;
 
-            float set_temperature = float.Parse(MaxTemp_copy);
+            float set_temperature = MaxTemp_copy;
 
             if (PlateauTemperatureWindow == null) return false;
             if (PlateauTemperatureWindow.Count < PlateauWindowLength) return false;
@@ -3157,7 +3147,7 @@ namespace USB_TC_Control
             
             oven_pid_settings = Program.pid_settings_form.ProgramPidSettings;
 
-            set_point_temperature = Double.Parse(MaxTemp_copy);
+            set_point_temperature = MaxTemp_copy;
 
             double[] CurrentTemp_EachZone = new double[3] { 0, 0, 0 };
 
@@ -3313,7 +3303,7 @@ namespace USB_TC_Control
                     {
                         TimeSpan peak_duration = DateTime.Now - MaxTemp_StartTime;
 
-                        double hold_time_minutes = double.Parse(HoldTime_copy);
+                        double hold_time_minutes = HoldTime_copy.TotalMinutes;
 
                         HoldTimeRemaining_copy = (hold_time_minutes - peak_duration.TotalMinutes).ToString("#0.0#");
                         HoldTimeRemainingTextBox.BeginInvoke((Action)(() => HoldTimeRemainingTextBox.Text = HoldTimeRemaining_copy));
@@ -3418,8 +3408,8 @@ namespace USB_TC_Control
             float switch_temperature = 10000;
             float stop_temperature = 10000;
 
-            float.TryParse(SwitchTemp_copy, out switch_temperature);
-            float.TryParse(StopTemp_copy, out stop_temperature);
+            switch_temperature = SwitchTemp_copy;
+            stop_temperature = StopTemp_copy;
 
             //Lock CurrentTemperatures array for access by the oven thread.
             IsLockedCurrentTemp_Array = true;
@@ -3474,8 +3464,8 @@ namespace USB_TC_Control
             {
                 //Read Switch N2 to Air and Stop Temperatures Directly from the controls
                 //in case the user has changed them
-                float.TryParse(SwitchTemp_copy, out switch_temperature);
-                float.TryParse(StopTemp_copy, out stop_temperature);
+                switch_temperature = SwitchTemp_copy;
+                stop_temperature = StopTemp_copy;
                 
                 IsLockedCurrentTemp_Array = true;
 
@@ -3557,7 +3547,7 @@ namespace USB_TC_Control
             String log_string = "Start Set-Point Pulse Experiment";
             
             //Pulse amplitude - set to half of current Max Temp Value
-            double pulse_amplitude = Double.Parse(MaxTemp_copy) / 2;
+            double pulse_amplitude = MaxTemp_copy / 2;
 
             //Pulse half-width = 4 times PID cycles (3 sec cycle time)
             int pulse_length_seconds = (int)this.oven_pid_settings.cycle_time_in_seconds * 4;
@@ -3645,23 +3635,23 @@ namespace USB_TC_Control
 
         private void StopCoolingTemperatureTextBox_TextChanged(object sender, EventArgs e)
         {
-            StopTemp_copy = StopCoolingTemperatureTextBox.Text;
+            StopTemp_copy = (float)StopCoolingTemperatureNumericUpDown.Value;
         }
 
         private void SwitchTempTextBox_TextChanged(object sender, EventArgs e)
         {
-            SwitchTemp_copy = SwitchTempTextBox.Text;
+            SwitchTemp_copy = (float)SwitchToAirTemperatureNumericUpDown.Value;
         }
 
         private void HoldTimeTextBox_TextChanged(object sender, EventArgs e)
         {
-            HoldTime_copy = HoldTimeTextBox.Text;
+            HoldTime_copy = new TimeSpan(0, (int)HoldTimeAtPeakNumericUpDown.Value, 0);
         }
 
         private void MaxTempTextBox_TextChanged(object sender, EventArgs e)
         {
-            MaxTemp_copy = MaxTempTextBox.Text;
-            set_point_temperature = Double.Parse(MaxTemp_copy);
+            MaxTemp_copy = (float)MaxTemperatureNumericUpDown.Value;
+            set_point_temperature = MaxTemp_copy;
         }
     }
 }

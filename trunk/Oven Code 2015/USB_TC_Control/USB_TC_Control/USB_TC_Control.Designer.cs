@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(USB_TC_Control_Form));
             this.ReadTC_Button = new System.Windows.Forms.Button();
             this.StartOvenButton = new System.Windows.Forms.Button();
@@ -67,8 +67,6 @@
             this.ExitButton = new System.Windows.Forms.Button();
             this.StopOvenButton = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
-            this.MaxTempTextBox = new System.Windows.Forms.TextBox();
-            this.HoldTimeTextBox = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -112,7 +110,6 @@
             this.TimeElapsedTextBox = new System.Windows.Forms.TextBox();
             this.TestMode = new System.Windows.Forms.Button();
             this.label39 = new System.Windows.Forms.Label();
-            this.SwitchTempTextBox = new System.Windows.Forms.TextBox();
             this.label40 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.HoldTimeRemainingTextBox = new System.Windows.Forms.TextBox();
@@ -142,7 +139,6 @@
             this.OvenSampleBoatPictureBox = new System.Windows.Forms.PictureBox();
             this.OpenPIDSettingsWindowButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.StopCoolingTemperatureTextBox = new System.Windows.Forms.TextBox();
             this.StartCoolingButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.AirOnOffIndicatorButton = new System.Windows.Forms.Button();
@@ -151,6 +147,11 @@
             this.LowN2OnOffIndicatorButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.PulseSetpointTestButton = new System.Windows.Forms.Button();
+            this.AbortButton = new System.Windows.Forms.Button();
+            this.MaxTemperatureNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.HoldTimeAtPeakNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.SwitchToAirTemperatureNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.StopCoolingTemperatureNumericUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.TempertureVsTimeGraph)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTrayBracketPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BottomToTopArrowPictureBox)).BeginInit();
@@ -159,6 +160,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.SampleZoneBracketPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InnerZoneBracketPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OvenSampleBoatPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxTemperatureNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HoldTimeAtPeakNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SwitchToAirTemperatureNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StopCoolingTemperatureNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // ReadTC_Button
@@ -449,24 +454,6 @@
             this.label12.Size = new System.Drawing.Size(176, 17);
             this.label12.TabIndex = 33;
             this.label12.Text = "Oven Run Information :";
-            // 
-            // MaxTempTextBox
-            // 
-            this.MaxTempTextBox.Location = new System.Drawing.Point(460, 64);
-            this.MaxTempTextBox.MaxLength = 4;
-            this.MaxTempTextBox.Name = "MaxTempTextBox";
-            this.MaxTempTextBox.Size = new System.Drawing.Size(59, 20);
-            this.MaxTempTextBox.TabIndex = 4;
-            this.MaxTempTextBox.TextChanged += new System.EventHandler(this.MaxTempTextBox_TextChanged);
-            // 
-            // HoldTimeTextBox
-            // 
-            this.HoldTimeTextBox.Location = new System.Drawing.Point(460, 94);
-            this.HoldTimeTextBox.MaxLength = 3;
-            this.HoldTimeTextBox.Name = "HoldTimeTextBox";
-            this.HoldTimeTextBox.Size = new System.Drawing.Size(59, 20);
-            this.HoldTimeTextBox.TabIndex = 5;
-            this.HoldTimeTextBox.TextChanged += new System.EventHandler(this.HoldTimeTextBox_TextChanged);
             // 
             // label13
             // 
@@ -794,73 +781,73 @@
             // 
             this.TempertureVsTimeGraph.BackColor = System.Drawing.Color.Transparent;
             this.TempertureVsTimeGraph.BackSecondaryColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.TempertureVsTimeGraph.ChartAreas.Add(chartArea1);
-            legend1.ItemColumnSpacing = 100;
-            legend1.Name = "Legend1";
-            legend1.TextWrapThreshold = 50;
-            this.TempertureVsTimeGraph.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.TempertureVsTimeGraph.ChartAreas.Add(chartArea2);
+            legend2.ItemColumnSpacing = 100;
+            legend2.Name = "Legend1";
+            legend2.TextWrapThreshold = 50;
+            this.TempertureVsTimeGraph.Legends.Add(legend2);
             this.TempertureVsTimeGraph.Location = new System.Drawing.Point(12, 560);
             this.TempertureVsTimeGraph.Name = "TempertureVsTimeGraph";
             this.TempertureVsTimeGraph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
-            series1.BorderWidth = 2;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Color = System.Drawing.Color.Yellow;
-            series1.Legend = "Legend1";
-            series1.LegendText = "Outer Zone - Heating Coil (Ch 6)";
-            series1.Name = "Outer";
-            series2.BorderWidth = 2;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Color = System.Drawing.Color.Cyan;
-            series2.Legend = "Legend1";
-            series2.LegendText = "Inner Zone - Heating Coil (Ch 7)";
-            series2.Name = "Inner";
-            series3.BorderWidth = 2;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Color = System.Drawing.Color.Lime;
-            series3.Legend = "Legend1";
-            series3.LegendText = "Tray Outer Zone - Edge (Ch 0)";
-            series3.Name = "TrayOuter_Edge";
-            series4.BorderWidth = 2;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Color = System.Drawing.Color.Red;
-            series4.Legend = "Legend1";
-            series4.LegendText = "Tray Sample Zone - Edge (Ch 1)";
-            series4.Name = "TraySampleZone_Edge";
-            series5.BorderWidth = 2;
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.Color = System.Drawing.Color.Blue;
-            series5.Legend = "Legend1";
-            series5.LegendText = "Tray Inner Zone - Edge (Ch 2)";
-            series5.Name = "TrayInner_Edge";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series6.Legend = "Legend1";
-            series6.LegendText = "Tray Outer Zone - Center (Ch 5)";
-            series6.Name = "TrayOuter_Center";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series7.Legend = "Legend1";
-            series7.LegendText = "Tray Sample Zone - Center (Ch 4)";
-            series7.Name = "TraySampleZone_Center";
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series8.Legend = "Legend1";
-            series8.LegendText = "Tray Inner Zone - Center (Ch 3)";
-            series8.Name = "TrayInner_Center";
-            this.TempertureVsTimeGraph.Series.Add(series1);
-            this.TempertureVsTimeGraph.Series.Add(series2);
-            this.TempertureVsTimeGraph.Series.Add(series3);
-            this.TempertureVsTimeGraph.Series.Add(series4);
-            this.TempertureVsTimeGraph.Series.Add(series5);
-            this.TempertureVsTimeGraph.Series.Add(series6);
-            this.TempertureVsTimeGraph.Series.Add(series7);
-            this.TempertureVsTimeGraph.Series.Add(series8);
+            series9.BorderWidth = 2;
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series9.Color = System.Drawing.Color.Yellow;
+            series9.Legend = "Legend1";
+            series9.LegendText = "Outer Zone - Heating Coil (Ch 6)";
+            series9.Name = "Outer";
+            series10.BorderWidth = 2;
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series10.Color = System.Drawing.Color.Cyan;
+            series10.Legend = "Legend1";
+            series10.LegendText = "Inner Zone - Heating Coil (Ch 7)";
+            series10.Name = "Inner";
+            series11.BorderWidth = 2;
+            series11.ChartArea = "ChartArea1";
+            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series11.Color = System.Drawing.Color.Lime;
+            series11.Legend = "Legend1";
+            series11.LegendText = "Tray Outer Zone - Edge (Ch 0)";
+            series11.Name = "TrayOuter_Edge";
+            series12.BorderWidth = 2;
+            series12.ChartArea = "ChartArea1";
+            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series12.Color = System.Drawing.Color.Red;
+            series12.Legend = "Legend1";
+            series12.LegendText = "Tray Sample Zone - Edge (Ch 1)";
+            series12.Name = "TraySampleZone_Edge";
+            series13.BorderWidth = 2;
+            series13.ChartArea = "ChartArea1";
+            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series13.Color = System.Drawing.Color.Blue;
+            series13.Legend = "Legend1";
+            series13.LegendText = "Tray Inner Zone - Edge (Ch 2)";
+            series13.Name = "TrayInner_Edge";
+            series14.ChartArea = "ChartArea1";
+            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series14.Legend = "Legend1";
+            series14.LegendText = "Tray Outer Zone - Center (Ch 5)";
+            series14.Name = "TrayOuter_Center";
+            series15.ChartArea = "ChartArea1";
+            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series15.Legend = "Legend1";
+            series15.LegendText = "Tray Sample Zone - Center (Ch 4)";
+            series15.Name = "TraySampleZone_Center";
+            series16.ChartArea = "ChartArea1";
+            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series16.Legend = "Legend1";
+            series16.LegendText = "Tray Inner Zone - Center (Ch 3)";
+            series16.Name = "TrayInner_Center";
+            this.TempertureVsTimeGraph.Series.Add(series9);
+            this.TempertureVsTimeGraph.Series.Add(series10);
+            this.TempertureVsTimeGraph.Series.Add(series11);
+            this.TempertureVsTimeGraph.Series.Add(series12);
+            this.TempertureVsTimeGraph.Series.Add(series13);
+            this.TempertureVsTimeGraph.Series.Add(series14);
+            this.TempertureVsTimeGraph.Series.Add(series15);
+            this.TempertureVsTimeGraph.Series.Add(series16);
             this.TempertureVsTimeGraph.Size = new System.Drawing.Size(1252, 373);
             this.TempertureVsTimeGraph.TabIndex = 95;
             this.TempertureVsTimeGraph.Text = "Time Vs Temperature (C) Graph";
@@ -885,7 +872,7 @@
             this.WarningTextBox.Multiline = true;
             this.WarningTextBox.Name = "WarningTextBox";
             this.WarningTextBox.ReadOnly = true;
-            this.WarningTextBox.Size = new System.Drawing.Size(220, 186);
+            this.WarningTextBox.Size = new System.Drawing.Size(220, 174);
             this.WarningTextBox.TabIndex = 101;
             // 
             // OpenLogFileDirectoryButton
@@ -937,15 +924,6 @@
             this.label39.Size = new System.Drawing.Size(110, 13);
             this.label39.TabIndex = 104;
             this.label39.Text = "* Switch to air at (°C) :";
-            // 
-            // SwitchTempTextBox
-            // 
-            this.SwitchTempTextBox.Location = new System.Drawing.Point(460, 154);
-            this.SwitchTempTextBox.MaxLength = 3;
-            this.SwitchTempTextBox.Name = "SwitchTempTextBox";
-            this.SwitchTempTextBox.Size = new System.Drawing.Size(59, 20);
-            this.SwitchTempTextBox.TabIndex = 103;
-            this.SwitchTempTextBox.TextChanged += new System.EventHandler(this.SwitchTempTextBox_TextChanged);
             // 
             // label40
             // 
@@ -1230,15 +1208,6 @@
             this.label1.TabIndex = 137;
             this.label1.Text = "Stop Cooling at (°C) :";
             // 
-            // StopCoolingTemperatureTextBox
-            // 
-            this.StopCoolingTemperatureTextBox.Location = new System.Drawing.Point(460, 182);
-            this.StopCoolingTemperatureTextBox.MaxLength = 3;
-            this.StopCoolingTemperatureTextBox.Name = "StopCoolingTemperatureTextBox";
-            this.StopCoolingTemperatureTextBox.Size = new System.Drawing.Size(59, 20);
-            this.StopCoolingTemperatureTextBox.TabIndex = 136;
-            this.StopCoolingTemperatureTextBox.TextChanged += new System.EventHandler(this.StopCoolingTemperatureTextBox_TextChanged);
-            // 
             // StartCoolingButton
             // 
             this.StartCoolingButton.Location = new System.Drawing.Point(782, 191);
@@ -1313,11 +1282,106 @@
             this.PulseSetpointTestButton.UseVisualStyleBackColor = true;
             this.PulseSetpointTestButton.Click += new System.EventHandler(this.PulseSetpointTestButton_Click);
             // 
+            // AbortButton
+            // 
+            this.AbortButton.BackColor = System.Drawing.Color.Red;
+            this.AbortButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AbortButton.ForeColor = System.Drawing.Color.Black;
+            this.AbortButton.Location = new System.Drawing.Point(1009, 909);
+            this.AbortButton.Name = "AbortButton";
+            this.AbortButton.Size = new System.Drawing.Size(116, 37);
+            this.AbortButton.TabIndex = 146;
+            this.AbortButton.Text = "ABORT";
+            this.AbortButton.UseVisualStyleBackColor = false;
+            // 
+            // MaxTemperatureNumericUpDown
+            // 
+            this.MaxTemperatureNumericUpDown.Location = new System.Drawing.Point(462, 65);
+            this.MaxTemperatureNumericUpDown.Maximum = new decimal(new int[] {
+            800,
+            0,
+            0,
+            0});
+            this.MaxTemperatureNumericUpDown.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.MaxTemperatureNumericUpDown.Name = "MaxTemperatureNumericUpDown";
+            this.MaxTemperatureNumericUpDown.Size = new System.Drawing.Size(57, 20);
+            this.MaxTemperatureNumericUpDown.TabIndex = 147;
+            this.MaxTemperatureNumericUpDown.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            // 
+            // HoldTimeAtPeakNumericUpDown
+            // 
+            this.HoldTimeAtPeakNumericUpDown.Location = new System.Drawing.Point(462, 96);
+            this.HoldTimeAtPeakNumericUpDown.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.HoldTimeAtPeakNumericUpDown.Name = "HoldTimeAtPeakNumericUpDown";
+            this.HoldTimeAtPeakNumericUpDown.Size = new System.Drawing.Size(57, 20);
+            this.HoldTimeAtPeakNumericUpDown.TabIndex = 148;
+            // 
+            // SwitchToAirTemperatureNumericUpDown
+            // 
+            this.SwitchToAirTemperatureNumericUpDown.Location = new System.Drawing.Point(462, 155);
+            this.SwitchToAirTemperatureNumericUpDown.Maximum = new decimal(new int[] {
+            800,
+            0,
+            0,
+            0});
+            this.SwitchToAirTemperatureNumericUpDown.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.SwitchToAirTemperatureNumericUpDown.Name = "SwitchToAirTemperatureNumericUpDown";
+            this.SwitchToAirTemperatureNumericUpDown.Size = new System.Drawing.Size(57, 20);
+            this.SwitchToAirTemperatureNumericUpDown.TabIndex = 149;
+            this.SwitchToAirTemperatureNumericUpDown.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            // 
+            // StopCoolingTemperatureNumericUpDown
+            // 
+            this.StopCoolingTemperatureNumericUpDown.Location = new System.Drawing.Point(462, 183);
+            this.StopCoolingTemperatureNumericUpDown.Maximum = new decimal(new int[] {
+            800,
+            0,
+            0,
+            0});
+            this.StopCoolingTemperatureNumericUpDown.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.StopCoolingTemperatureNumericUpDown.Name = "StopCoolingTemperatureNumericUpDown";
+            this.StopCoolingTemperatureNumericUpDown.Size = new System.Drawing.Size(57, 20);
+            this.StopCoolingTemperatureNumericUpDown.TabIndex = 150;
+            this.StopCoolingTemperatureNumericUpDown.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            // 
             // USB_TC_Control_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1279, 945);
+            this.ClientSize = new System.Drawing.Size(1279, 952);
+            this.Controls.Add(this.StopCoolingTemperatureNumericUpDown);
+            this.Controls.Add(this.SwitchToAirTemperatureNumericUpDown);
+            this.Controls.Add(this.HoldTimeAtPeakNumericUpDown);
+            this.Controls.Add(this.MaxTemperatureNumericUpDown);
+            this.Controls.Add(this.AbortButton);
             this.Controls.Add(this.PulseSetpointTestButton);
             this.Controls.Add(this.LowN2OnOffIndicatorButton);
             this.Controls.Add(this.label4);
@@ -1327,7 +1391,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.StartCoolingButton);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.StopCoolingTemperatureTextBox);
             this.Controls.Add(this.OpenPIDSettingsWindowButton);
             this.Controls.Add(this.OvenSampleBoatPictureBox);
             this.Controls.Add(this.InnerZoneBracketPictureBox);
@@ -1357,7 +1420,6 @@
             this.Controls.Add(this.HoldTimeRemainingTextBox);
             this.Controls.Add(this.label40);
             this.Controls.Add(this.label39);
-            this.Controls.Add(this.SwitchTempTextBox);
             this.Controls.Add(this.TestMode);
             this.Controls.Add(this.label35);
             this.Controls.Add(this.TimeElapsedTextBox);
@@ -1400,8 +1462,6 @@
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.HoldTimeTextBox);
-            this.Controls.Add(this.MaxTempTextBox);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.StopOvenButton);
             this.Controls.Add(this.ExitButton);
@@ -1441,6 +1501,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.SampleZoneBracketPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InnerZoneBracketPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OvenSampleBoatPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxTemperatureNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HoldTimeAtPeakNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SwitchToAirTemperatureNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.StopCoolingTemperatureNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1476,8 +1540,6 @@
         private System.Windows.Forms.Button ExitButton;
         private System.Windows.Forms.Button StopOvenButton;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox MaxTempTextBox;
-        private System.Windows.Forms.TextBox HoldTimeTextBox;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
@@ -1521,7 +1583,6 @@
         private System.Windows.Forms.TextBox TimeElapsedTextBox;
         private System.Windows.Forms.Button TestMode;
         private System.Windows.Forms.Label label39;
-        private System.Windows.Forms.TextBox SwitchTempTextBox;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox HoldTimeRemainingTextBox;
@@ -1551,7 +1612,6 @@
         private System.Windows.Forms.PictureBox OvenSampleBoatPictureBox;
         private System.Windows.Forms.Button OpenPIDSettingsWindowButton;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox StopCoolingTemperatureTextBox;
         private System.Windows.Forms.Button StartCoolingButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button AirOnOffIndicatorButton;
@@ -1560,6 +1620,11 @@
         private System.Windows.Forms.Button LowN2OnOffIndicatorButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button PulseSetpointTestButton;
+        private System.Windows.Forms.Button AbortButton;
+        private System.Windows.Forms.NumericUpDown MaxTemperatureNumericUpDown;
+        private System.Windows.Forms.NumericUpDown HoldTimeAtPeakNumericUpDown;
+        private System.Windows.Forms.NumericUpDown SwitchToAirTemperatureNumericUpDown;
+        private System.Windows.Forms.NumericUpDown StopCoolingTemperatureNumericUpDown;
     }
 }
 
