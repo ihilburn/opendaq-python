@@ -98,8 +98,10 @@
             this.InfoBox1 = new System.Windows.Forms.TextBox();
             this.TestButton = new System.Windows.Forms.Button();
             this.ShutDownLabel = new System.Windows.Forms.Label();
-            this.ShutDownBox = new System.Windows.Forms.ComboBox();
+            this.ShutDownMinutesNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.TempGraph)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ShutDownMinutesNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // StartButton
@@ -197,6 +199,7 @@
             this.UserEmailBox.Name = "UserEmailBox";
             this.UserEmailBox.Size = new System.Drawing.Size(192, 20);
             this.UserEmailBox.TabIndex = 9;
+            this.UserEmailBox.Text = "kobayashi.a.an@m.titech.ac.jp";
             // 
             // NumSamplesBox
             // 
@@ -764,28 +767,45 @@
             this.ShutDownLabel.TabIndex = 86;
             this.ShutDownLabel.Text = "Number of minutes after freezing to stop run:";
             // 
-            // ShutDownBox
+            // ShutDownMinutesNumericUpDown
             // 
-            this.ShutDownBox.FormattingEnabled = true;
-            this.ShutDownBox.Items.AddRange(new object[] {
-            "1",
-            "15",
-            "30",
-            "60",
-            "90",
-            "120",
-            "Never"});
-            this.ShutDownBox.Location = new System.Drawing.Point(687, 69);
-            this.ShutDownBox.Name = "ShutDownBox";
-            this.ShutDownBox.Size = new System.Drawing.Size(58, 21);
-            this.ShutDownBox.TabIndex = 87;
+            this.ShutDownMinutesNumericUpDown.Location = new System.Drawing.Point(686, 72);
+            this.ShutDownMinutesNumericUpDown.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.ShutDownMinutesNumericUpDown.Minimum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.ShutDownMinutesNumericUpDown.Name = "ShutDownMinutesNumericUpDown";
+            this.ShutDownMinutesNumericUpDown.Size = new System.Drawing.Size(59, 20);
+            this.ShutDownMinutesNumericUpDown.TabIndex = 87;
+            this.ShutDownMinutesNumericUpDown.Value = new decimal(new int[] {
+            600,
+            0,
+            0,
+            0});
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(748, 74);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 13);
+            this.label1.TabIndex = 88;
+            this.label1.Text = "minutes";
             // 
             // FreezeDetectorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1240, 671);
-            this.Controls.Add(this.ShutDownBox);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.ShutDownMinutesNumericUpDown);
             this.Controls.Add(this.ShutDownLabel);
             this.Controls.Add(this.TestButton);
             this.Controls.Add(this.InfoBox8);
@@ -858,6 +878,7 @@
             this.Text = "  ";
             this.Load += new System.EventHandler(this.FreezeDetectorForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.TempGraph)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ShutDownMinutesNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -933,7 +954,8 @@
         private System.Windows.Forms.TextBox InfoBox1;
         private System.Windows.Forms.Button TestButton;
         private System.Windows.Forms.Label ShutDownLabel;
-        private System.Windows.Forms.ComboBox ShutDownBox;
+        private System.Windows.Forms.NumericUpDown ShutDownMinutesNumericUpDown;
+        private System.Windows.Forms.Label label1;
     }
 }
 

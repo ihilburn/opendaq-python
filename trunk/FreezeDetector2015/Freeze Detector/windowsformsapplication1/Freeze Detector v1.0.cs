@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Runtime.InteropServices;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -105,8 +107,8 @@ namespace WindowsFormsApplication1
         private SmtpClient client = new SmtpClient();
         private MailMessage message = new MailMessage();
         private System.Net.NetworkCredential SMTP_Creds = new
-           System.Net.NetworkCredential("freezecontrolprogram@gmail.com",
-           "wholewheat");
+           System.Net.NetworkCredential("rapid.beta.tester@gmail.com",
+           "igfoup666");
 
         // Variables to keep track of time elapsed
         private DateTime Start_Time = new DateTime();
@@ -560,22 +562,16 @@ namespace WindowsFormsApplication1
                 }
             }
 
-            if (ShutDownBox.SelectedItem == null)
+            try
             {
-                ShutDownBox.BackColor = Color.MistyRose;
-                check++;
+                ShutDownMinutes = (int)ShutDownMinutesNumericUpDown.Value;
+                ShutDownMinutesNumericUpDown.BackColor = default(Color);
             }
-            else
+            catch
             {
-                ShutDownBox.BackColor = default(Color);
-                try
-                {
-                    ShutDownMinutes = int.Parse(ShutDownBox.SelectedItem.ToString());
-                }
-                catch
-                {
-                    ShutDownMinutes = -9999;
-                }
+                ShutDownMinutes = -9999;
+                ShutDownMinutesNumericUpDown.BackColor = Color.MistyRose;
+                check++;
             }
 
             if (String.IsNullOrWhiteSpace(DirectoryBox.Text))
@@ -624,7 +620,7 @@ namespace WindowsFormsApplication1
             {
                 // SMPT host setup
                 client.Host = "smtp.gmail.com";
-                client.Port = 587;
+                client.Port = 465;
                 client.UseDefaultCredentials = false;
                 client.Credentials = SMTP_Creds;
                 client.EnableSsl = true;
@@ -633,7 +629,7 @@ namespace WindowsFormsApplication1
                 temp = temp.Replace(";", ",");
 
                 MailAddress from =
-                    new MailAddress("freezecontrolprogram@gmail.com");
+                    new MailAddress("rapid.beta.tester@gmail.com");
 
                 System.Net.Mail.Attachment graph;
                 graph = new System.Net.Mail.Attachment(file1);
@@ -704,6 +700,9 @@ namespace WindowsFormsApplication1
 
                 Thread.Sleep(100);
             }
+
+            //Capture the current program window to image and save to downloads folder
+            CaptureWindow_SaveToDownloadsFolderAsImageFile();
 
             this.Close();
         }
@@ -906,9 +905,11 @@ namespace WindowsFormsApplication1
             string time_var;
             time_var = DateTime.Now.ToString(format);
 
-            UserNameBox.Text = "Harry";
-            UserEmailBox.Text = "harrygolash@gmail.com";
-            DirectoryBox.Text = "C:\\Users\\Stage\\Desktop\\test" + time_var + ".csv";
+            UserNameBox.Text = "Atsuko";
+            UserEmailBox.Text = "kobayashi.a.an@m.titech.ac.jp";
+            filepath = @"C:\Users\Atsuko Kobayashi\Desktop\Cryo Experiment data\New folder test\";
+            filename = "test_" + time_var;
+            DirectoryBox.Text = Path.Combine(filepath, filename + ".csv");
             directory = DirectoryBox.Text;
             LogIntervalBox.Text = "1";
             NameBox1.Text = "1";
@@ -920,6 +921,52 @@ namespace WindowsFormsApplication1
             NameBox7.Text = "7";
             NameBox8.Text = "8";
             NumSamplesBox.SelectedIndex = 7;
+        }
+
+        private void CaptureWindow_SaveToDownloadsFolderAsImageFile()
+        {
+            try
+            {
+                //Create a new bitmap.
+                var bmpScreenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width,
+                                               Screen.PrimaryScreen.Bounds.Height,
+                                               PixelFormat.Format32bppArgb);
+
+                // Create a graphics object from the bitmap.
+                var gfxScreenshot = Graphics.FromImage(bmpScreenshot);
+
+                // Take the screenshot from the upper left corner to the right bottom corner.
+                gfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X,
+                                            Screen.PrimaryScreen.Bounds.Y,
+                                            0,
+                                            0,
+                                            Screen.PrimaryScreen.Bounds.Size,
+                                            CopyPixelOperation.SourceCopy);
+
+                //Generate save file path for Screen Shot
+                string image_file_name = filename;
+                string image_file_path =
+                    Path.Combine(
+                        filepath,
+                        String.Format(
+                            "ScreenShot_{0}.png",
+                            image_file_name));
+
+                // Save the screenshot to the specified path that the user has chosen.
+                bmpScreenshot.Save(image_file_path, ImageFormat.Png);
+            }
+            catch (Exception screen_capture_exception)
+            {
+                MessageBox.Show(
+                    String.Format(
+                        "{0}{1}{1}{2}{1}{3}{1}{4}",
+                        "Error Capturing Screen and saving as image file.",
+                        Environment.NewLine,
+                        "Message: " + screen_capture_exception.Message,
+                        "Source: " + screen_capture_exception.Source,
+                        "Stack Trace: " + screen_capture_exception.StackTrace),
+                    "Screen Capture Error");
+            }
         }
     }
 }
