@@ -1,0 +1,25 @@
+C:\Documents and Settings\lab\Desktop\Harry\USB_TC_Control\USB_TC_Control\bin\Debug\USB_TC_Control.exe
+C:\Documents and Settings\lab\Desktop\Harry\USB_TC_Control\USB_TC_Control\bin\Debug\USB_TC_Control.pdb
+C:\Documents and Settings\lab\Desktop\Harry\USB_TC_Control\USB_TC_Control\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\lab\Desktop\Harry\USB_TC_Control\USB_TC_Control\obj\x86\Debug\USB_TC_Control.Properties.Resources.resources
+C:\Documents and Settings\lab\Desktop\Harry\USB_TC_Control\USB_TC_Control\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\lab\Desktop\Harry\USB_TC_Control\USB_TC_Control\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\lab\Desktop\Harry\USB_TC_Control\USB_TC_Control\obj\x86\Debug\USB_TC_Control.exe
+C:\Documents and Settings\lab\Desktop\Harry\USB_TC_Control\USB_TC_Control\obj\x86\Debug\USB_TC_Control.pdb
+C:\Documents and Settings\lab\Desktop\Harry\USB_TC_Control\USB_TC_Control\obj\x86\Debug\USB_TC_Control.USB_TC_Control.resources
+C:\Users\lab\Dropbox\Ge SURF\Stuff\C# Code\USB_TC_Control\USB_TC_Control\bin\Debug\USB_TC_Control.exe
+C:\Users\lab\Dropbox\Ge SURF\Stuff\C# Code\USB_TC_Control\USB_TC_Control\bin\Debug\USB_TC_Control.pdb
+C:\Users\lab\Dropbox\Ge SURF\Stuff\C# Code\USB_TC_Control\USB_TC_Control\obj\x86\Debug\USB_TC_Control.Properties.Resources.resources
+C:\Users\lab\Dropbox\Ge SURF\Stuff\C# Code\USB_TC_Control\USB_TC_Control\obj\x86\Debug\USB_TC_Control.USB_TC_Control.resources
+C:\Users\lab\Dropbox\Ge SURF\Stuff\C# Code\USB_TC_Control\USB_TC_Control\obj\x86\Debug\USB_TC_Control.csproj.GenerateResource.Cache
+C:\Users\lab\Dropbox\Ge SURF\Stuff\C# Code\USB_TC_Control\USB_TC_Control\obj\x86\Debug\USB_TC_Control.exe
+C:\Users\lab\Dropbox\Ge SURF\Stuff\C# Code\USB_TC_Control\USB_TC_Control\obj\x86\Debug\USB_TC_Control.pdb
+C:\Users\lab\Dropbox\Ge SURF\Stuff\C# Code\USB_TC_Control\USB_TC_Control\obj\x86\Debug\USB_TC_Control.csprojResolveAssemblyReference.cache
+C:\Users\lab\Documents\Visual Studio 2010\Projects\Oven Code 2015\USB_TC_Control\obj\x86\Debug\USB_TC_Control.exe
+C:\Users\lab\Documents\Visual Studio 2010\Projects\Oven Code 2015\USB_TC_Control\obj\x86\Debug\USB_TC_Control.pdb
+C:\Users\lab\Documents\Visual Studio 2010\Projects\Oven Code 2015\USB_TC_Control\obj\x86\Debug\USB_TC_Control.Properties.Resources.resources
+C:\Users\lab\Documents\Visual Studio 2010\Projects\Oven Code 2015\USB_TC_Control\obj\x86\Debug\USB_TC_Control.csproj.GenerateResource.Cache
+C:\Users\lab\Documents\Visual Studio 2010\Projects\Oven Code 2015\USB_TC_Control\obj\x86\Debug\USB_TC_Control.USB_TC_Control.resources
+C:\Users\lab\Documents\Visual Studio 2010\Projects\Oven Code 2015\USB_TC_Control\bin\Debug\USB_TC_Control.exe
+C:\Users\lab\Documents\Visual Studio 2010\Projects\Oven Code 2015\USB_TC_Control\bin\Debug\USB_TC_Control.pdb
+C:\Users\lab\Documents\Visual Studio 2010\Projects\Oven Code 2015\USB_TC_Control\obj\x86\Debug\USB_TC_Control.csprojResolveAssemblyReference.cache
